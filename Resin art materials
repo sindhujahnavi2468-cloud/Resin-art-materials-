@@ -1,0 +1,503 @@
+<title>Resin Art Materials</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: milk-glass storefront. Sticky header, marbled "resin pour" arch hero, filterable product grid, slide-in cart that checks out to WhatsApp. */
+:root {
+  --bg: #F2F4FA;          /* cured-resin milk glass */
+  --surface: #FFFFFF;
+  --surface-2: #E9ECF6;
+  --ink: #12163A;         /* ink navy from the logo */
+  --muted: #5B6088;
+  --line: #D9DDEE;
+  --accent: #6B2FD6;      /* violet from the logo */
+  --accent-soft: #E7DDFB;
+  --pink: #E23E9B;        /* pink marble */
+  --gold: #D9A93B;        /* gold foil */
+  --wa: #168F4A;
+  --wa-ink: #FFFFFF;
+  --btn: #12163A;
+  --btn-ink: #FFFFFF;
+  --shadow: 0 1px 2px rgba(18,22,58,.06), 0 12px 32px -12px rgba(18,22,58,.18);
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 18px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B0D22; --surface: #14173A; --surface-2: #1C2048; --ink: #EEEFFC; --muted: #A2A7D3;
+    --line: #2A2F5E; --accent: #A98BFF; --accent-soft: #2B2457; --pink: #FF6CBB; --gold: #F0C45C;
+    --wa: #2BC36B; --wa-ink: #07210F; --btn: #EEEFFC; --btn-ink: #12163A;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B0D22; --surface: #14173A; --surface-2: #1C2048; --ink: #EEEFFC; --muted: #A2A7D3;
+  --line: #2A2F5E; --accent: #A98BFF; --accent-soft: #2B2457; --pink: #FF6CBB; --gold: #F0C45C;
+  --wa: #2BC36B; --wa-ink: #07210F; --btn: #EEEFFC; --btn-ink: #12163A;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 96px;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--bg); }
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; text-wrap: balance; margin: 0; line-height: 1.05; }
+p { margin: 0; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+.wrap { width: 100%; max-width: 1160px; margin-inline: auto; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+
+/* Header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+  background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 20px; min-height: 68px; }
+.brand { display: flex; flex-direction: column; text-decoration: none; line-height: 1.1; min-width: 0; margin-right: auto; }
+.brand b { font-family: var(--font-display); font-weight: 800; font-size: 20px; letter-spacing: -.02em; }
+.brand span { font-size: 12px; color: var(--muted); }
+.nav { display: flex; gap: 22px; font-weight: 600; font-size: 15px; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--ink); }
+.cart-btn { display: inline-flex; align-items: center; gap: 10px; border: 1.5px solid var(--ink); background: transparent; border-radius: 999px; padding: 9px 16px; font-weight: 700; }
+.cart-btn:hover { background: var(--btn); color: var(--btn-ink); }
+.cart-btn .n { background: var(--accent); color: #fff; min-width: 22px; height: 22px; border-radius: 99px; display: grid; place-items: center; font-size: 12px; padding-inline: 6px; font-variant-numeric: tabular-nums; }
+.cart-btn svg { width: 20px; height: 20px; }
+@media (max-width: 760px) { .nav { display: none; } }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 6vw, 72px); align-items: center; padding-block: clamp(28px, 6vw, 72px) clamp(36px, 6vw, 72px); }
+.hero h1 { font-size: clamp(40px, 7vw, 84px); font-weight: 800; margin-block: 14px 20px; }
+.hero h1 em { font-style: normal; background: linear-gradient(100deg, var(--accent), var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero p.lead { font-size: clamp(17px, 2vw, 20px); color: var(--muted); max-width: 46ch; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 999px; padding: 14px 24px; font-weight: 700; text-decoration: none; border: 0; background: var(--btn); color: var(--btn-ink); transition: transform .15s, box-shadow .15s; }
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn.wa { background: var(--wa); color: var(--wa-ink); }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 30px; font-size: 14px; color: var(--muted); font-weight: 500; }
+.facts span::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); margin-right: 8px; }
+
+.pour { position: relative; width: 100%; max-width: 440px; margin-inline: auto; aspect-ratio: 4/5; border-radius: 999px 999px 32px 32px; overflow: hidden; box-shadow: var(--shadow); background: var(--surface-2); isolation: isolate; }
+.pour .marble { position: absolute; inset: -22%; filter: url(#marble);
+  background:
+    radial-gradient(40% 30% at 25% 30%, rgba(255,255,255,.9), transparent 70%),
+    radial-gradient(35% 28% at 75% 65%, rgba(217,169,59,.85), transparent 70%),
+    linear-gradient(115deg, #17206F 0%, #3B2AA8 18%, #8B3FD0 34%, #F2D6F5 46%, #E23E9B 58%, #FFFFFF 66%, #4A2BC9 78%, #12163A 100%); }
+.pour .shine { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255,255,255,.45), transparent 38%, transparent 70%, rgba(255,255,255,.18)); mix-blend-mode: soft-light; pointer-events: none; }
+.pour .slot { position: absolute; inset: 0; z-index: 1; }
+.tag { position: absolute; z-index: 2; background: var(--surface); color: var(--ink); border-radius: 14px; padding: 10px 14px; box-shadow: var(--shadow); font-size: 13px; line-height: 1.25; }
+.tag b { display: block; font-size: 15px; font-family: var(--font-display); }
+.tag.a { left: 6%; bottom: 14%; } .tag.b { right: 6%; top: 24%; }
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .pour { max-width: 340px; } }
+
+/* Image slots */
+.slot { position: relative; overflow: hidden; background: var(--surface-2); }
+.slot .ph { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 6vw, 44px); color: color-mix(in srgb, var(--accent) 55%, var(--surface-2));
+  background: radial-gradient(70% 70% at 30% 20%, color-mix(in srgb, var(--accent) 14%, transparent), transparent), linear-gradient(135deg, var(--surface-2), color-mix(in srgb, var(--accent-soft) 70%, var(--surface-2))); }
+.slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* How it works */
+.how { padding-block: clamp(24px, 4vw, 48px); }
+.how ol { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: s; border-top: 1.5px solid var(--ink); }
+.how li { counter-increment: s; padding: 20px 18px 8px 0; position: relative; }
+.how li::before { content: counter(s); font-family: var(--font-display); font-weight: 800; font-size: 14px; color: var(--accent); display: block; margin-bottom: 10px; }
+.how li b { display: block; font-family: var(--font-display); font-size: 20px; letter-spacing: -.01em; margin-bottom: 4px; }
+.how li span { color: var(--muted); font-size: 15px; }
+@media (max-width: 760px) { .how ol { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 420px) { .how ol { grid-template-columns: 1fr; } }
+
+/* Shop */
+.shop { padding-block: clamp(28px, 5vw, 64px); }
+.shop-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
+.shop-head h2 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; margin-top: 8px; }
+.search { position: relative; flex: 1 1 260px; max-width: 360px; }
+.search input { width: 100%; font: inherit; color: var(--ink); background: var(--surface); border: 1.5px solid var(--line); border-radius: 999px; padding: 12px 18px 12px 44px; }
+.search input::placeholder { color: var(--muted); }
+.search svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--muted); }
+.chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 22px; scrollbar-width: thin; }
+.chip { flex: none; border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 8px 16px; font-weight: 600; font-size: 14px; }
+.chip[aria-pressed="true"] { background: var(--btn); color: var(--btn-ink); border-color: var(--btn); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 18px; }
+@media (max-width: 520px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; min-width: 0; }
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.card .slot { aspect-ratio: 1/1; }
+.card .body { padding: 14px 14px 14px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.card h3 { font-size: 18px; letter-spacing: -.01em; line-height: 1.15; }
+.card .note { font-size: 13px; color: var(--muted); line-height: 1.35; }
+.card .row { margin-top: auto; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 52px; }
+.price { font-weight: 700; font-variant-numeric: tabular-nums; }
+.price small { display: block; font-weight: 500; font-size: 12px; color: var(--muted); }
+.price.ask { font-size: 13px; font-weight: 600; color: var(--muted); }
+.add { border: 1.5px solid var(--ink); background: transparent; border-radius: 999px; padding: 8px 16px; font-weight: 700; font-size: 14px; flex: none; }
+.add:hover { background: var(--btn); color: var(--btn-ink); }
+.qty { display: inline-flex; align-items: center; background: var(--btn); color: var(--btn-ink); border-radius: 999px; flex: none; }
+.qty button { background: none; border: 0; width: 34px; height: 36px; font-size: 18px; font-weight: 700; color: inherit; }
+.qty output { min-width: 22px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+.empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 48px 12px; }
+
+/* Custom request */
+.ask { margin-block: clamp(24px, 4vw, 48px); background: var(--btn); color: var(--btn-ink); border-radius: 28px; padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: center; position: relative; overflow: hidden; }
+.ask::after { content: ""; position: absolute; right: -80px; top: -80px; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--pink), var(--accent) 60%, transparent 72%); opacity: .55; filter: blur(8px); pointer-events: none; }
+.ask h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; }
+.ask p { margin-top: 12px; opacity: .8; max-width: 48ch; }
+.ask .side { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.ask .num { font-family: var(--font-display); font-size: clamp(26px, 4vw, 38px); font-weight: 800; letter-spacing: .01em; font-variant-numeric: tabular-nums; user-select: all; }
+.ask .btn.wa { background: var(--wa); color: var(--wa-ink); }
+@media (max-width: 760px) { .ask { grid-template-columns: 1fr; } }
+
+/* Studio */
+.studio { padding-block: clamp(28px, 5vw, 64px); }
+.studio h2 { font-size: clamp(30px, 4.5vw, 48px); font-weight: 800; margin-block: 8px 10px; }
+.studio .sub { color: var(--muted); max-width: 54ch; }
+.gal { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 26px; }
+.gal figure { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.gal .slot { aspect-ratio: 4/5; border-radius: var(--r); }
+.gal figcaption { font-weight: 600; font-size: 14px; }
+@media (max-width: 760px) { .gal { grid-template-columns: repeat(2, 1fr); } }
+
+/* Footer */
+footer { border-top: 1px solid var(--line); padding-block: 32px; display: flex; flex-wrap: wrap; gap: 14px 28px; justify-content: space-between; align-items: center; color: var(--muted); font-size: 14px; }
+footer b { font-family: var(--font-display); color: var(--ink); font-size: 18px; }
+footer a { text-decoration-color: var(--line); text-underline-offset: 3px; }
+
+/* Cart */
+.scrim { position: fixed; inset: 0; background: rgba(8,10,30,.5); z-index: 70; opacity: 0; pointer-events: none; transition: opacity .25s; }
+.scrim.on { opacity: 1; pointer-events: auto; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100%); background: var(--surface); z-index: 80; display: flex; flex-direction: column; transform: translateX(104%); transition: transform .3s cubic-bezier(.2,.8,.2,1); visibility: hidden;
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); padding-right: env(safe-area-inset-right, 0px); }
+.drawer.on { transform: none; visibility: visible; box-shadow: -20px 0 60px -20px rgba(0,0,0,.4); }
+.drawer header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+.drawer header h2 { font-size: 26px; font-weight: 800; }
+.x { border: 0; background: var(--surface-2); border-radius: 50%; width: 38px; height: 38px; font-size: 20px; line-height: 1; }
+.lines { flex: 1; overflow-y: auto; padding: 8px 20px; }
+.line { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: center; }
+.line b { font-family: var(--font-display); font-size: 17px; }
+.line .u { color: var(--muted); font-size: 13px; }
+.line .sum { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+.line .qty { background: var(--surface-2); color: var(--ink); }
+.line .rm { background: none; border: 0; color: var(--muted); font-size: 13px; text-decoration: underline; padding: 0; text-align: right; }
+.cart-empty { text-align: center; color: var(--muted); padding: 56px 12px; }
+.cart-empty b { display: block; font-family: var(--font-display); font-size: 22px; color: var(--ink); margin-bottom: 6px; }
+.checkout { border-top: 1px solid var(--line); padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 10px; background: var(--surface); }
+.checkout input, .checkout textarea { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 14px; resize: none; }
+.checkout input::placeholder, .checkout textarea::placeholder { color: var(--muted); }
+.total { display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; }
+.total strong { font-family: var(--font-display); font-size: 26px; font-variant-numeric: tabular-nums; }
+.fine { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.checkout .btn { width: 100%; }
+.linkbtn { background: none; border: 0; color: var(--muted); font-size: 13px; text-decoration: underline; padding: 2px; align-self: center; }
+
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); transform: translateY(120%); transition: transform .3s; pointer-events: none; }
+.bar.on { transform: none; }
+.bar button { pointer-events: auto; width: 100%; max-width: 560px; margin-inline: auto; display: flex; justify-content: space-between; align-items: center; background: var(--btn); color: var(--btn-ink); border: 0; border-radius: 999px; padding: 14px 22px; font-weight: 700; box-shadow: var(--shadow); }
+.bar span:last-child { font-variant-numeric: tabular-nums; }
+.toast { position: fixed; left: 50%; bottom: calc(90px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: 14px; opacity: 0; pointer-events: none; transition: .25s; z-index: 90; }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero > * { animation: rise .7s both; } .hero > :nth-child(2) { animation-delay: .12s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="marble" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.007 0.011" numOctaves="3" seed="11" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="150" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><b>Resin Art Materials</b><span>by Life In Frame · PriyaJay</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#shop">Shop</a><a href="#how">How to order</a><a href="#studio">Studio</a><a href="#contact">Contact</a>
+    </nav>
+    <button class="cart-btn" id="openCart" aria-label="Open cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 8H6"/><circle cx="10" cy="20" r="1.2"/><circle cx="17" cy="20" r="1.2"/></svg>
+      Cart <span class="n" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="wrap hero">
+    <div>
+      <div class="eyebrow">Trusted resin finds</div>
+      <h1>Everything you need to pour something <em>beautiful.</em></h1>
+      <p class="lead">Resin, hardener, pigments, moulds, dried flowers, glitter and tools. Pick what your next piece needs, add it to your cart and send the list straight to us on WhatsApp.</p>
+      <div class="cta-row">
+        <a class="btn" href="#shop">Browse the catalogue</a>
+        <a class="btn ghost" id="heroWa" href="#" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+      <div class="facts"><span>Small to large resin quantities</span><span>Pondicherry · Chennai · Trichy</span></div>
+    </div>
+    <div class="pour" aria-hidden="true">
+      <div class="marble"></div><div class="shine"></div>
+      <div class="slot" id="heroSlot" style="background:transparent"></div>
+      <div class="tag a"><b>UV Resin · 200 g</b>Clear hard type, fast curing</div>
+      <div class="tag b"><b>Pigment</b>₹60 per piece</div>
+    </div>
+  </section>
+
+  <section class="wrap how" id="how">
+    <div class="eyebrow">How to order</div>
+    <ol>
+      <li><b>Browse</b><span>Scroll the catalogue or filter by what you are making.</span></li>
+      <li><b>Add to cart</b><span>Set quantities. Items without a listed price are quoted for you.</span></li>
+      <li><b>Send on WhatsApp</b><span>One tap sends your full list to Priya on WhatsApp.</span></li>
+      <li><b>We dispatch</b><span>Confirm the total and address in chat, then your parcel is packed and sent.</span></li>
+    </ol>
+  </section>
+
+  <section class="wrap shop" id="shop">
+    <div class="shop-head">
+      <div><div class="eyebrow">The catalogue</div><h2>Shop the materials</h2></div>
+      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search resin, moulds, glitter…" aria-label="Search products"></label>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Categories"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="wrap ask" id="contact">
+    <div>
+      <h2>Looking for something else?</h2>
+      <p>If you cannot see it here, ask. We stock more moulds and more options than the catalogue shows, and larger resin quantities on request.</p>
+    </div>
+    <div class="side">
+      <div class="num" id="phoneText">97901 39453</div>
+      <a class="btn wa" id="askWa" href="#" target="_blank" rel="noopener">Message on WhatsApp</a>
+    </div>
+  </section>
+
+  <section class="wrap studio" id="studio">
+    <div class="eyebrow">Behind the orders</div>
+    <h2>Life In Frame · PriyaJay</h2>
+    <p class="sub">A home studio sharing honest resin finds. Follow along for work in progress, dispatch days and customer reviews.</p>
+    <div class="gal" id="gal"></div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div><b>Resin Art Materials</b><div>Home business · Pondicherry, Chennai, Trichy</div></div>
+  <div>WhatsApp <span id="footPhone">97901 39453</span> · <a href="https://www.instagram.com/lifeinframepriyajay/" target="_blank" rel="noopener">@lifeinframepriyajay</a></div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true">
+  <header><h2 id="cartTitle">Your cart</h2><button class="x" id="closeCart" aria-label="Close cart">×</button></header>
+  <div class="lines" id="lines"></div>
+  <div class="checkout" id="checkout">
+    <input id="custName" type="text" placeholder="Your name" autocomplete="name" aria-label="Your name">
+    <textarea id="custNote" rows="2" placeholder="Delivery city or any note (optional)" aria-label="Note"></textarea>
+    <div class="total"><span>Total</span><strong id="total">₹0</strong></div>
+    <p class="fine" id="fine"></p>
+    <a class="btn wa" id="sendWa" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-1.9 1.3-.5.1-1.1.1-1.8-.1a14 14 0 0 1-5.3-3.3 9.7 9.7 0 0 1-2-3.2c-.4-1.3.4-2.2.8-2.6.3-.3.9-.4 1.2-.1l.9 1.9c.1.3 0 .6-.2.8l-.5.6c-.1.2-.2.4 0 .6a8 8 0 0 0 3.1 2.8c.3.1.5.1.7-.1l.7-.9c.2-.3.5-.3.8-.2l1.9.9c.3.2.4.4.3.7Z"/></svg>
+      Send order on WhatsApp</a>
+    <button class="linkbtn" id="copyMsg" type="button">Copy order message instead</button>
+  </div>
+</aside>
+<div class="bar" id="bar"><button id="barBtn" type="button"><span id="barN">0 items</span><span id="barT">View cart</span></button></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ============ EDIT ME ============ */
+const CONFIG = {
+  phone: "919790139453",          // WhatsApp number, country code first, digits only
+  phoneDisplay: "97901 39453",
+  currency: "₹",
+  // Paste Cloudinary image links between the quotes. Leave "" to show a placeholder.
+  heroImage: "",
+  galleryImages: [
+    { label: "Dispatch",        src: "" },
+    { label: "Resin art",       src: "" },
+    { label: "Work in progress",src: "" },
+    { label: "Customer reviews",src: "" }
+  ]
+};
+// For each product: img is the Cloudinary link ("" for now). price is a number in rupees, or null to quote on WhatsApp.
+const PRODUCTS = [
+  { id: "uv-resin",   name: "UV Resin",           cat: "Resin & Pigments", price: null, note: "200 gram. Clear hard type, fast curing, odourless.", img: "" },
+  { id: "resin-hard", name: "Resin and Hardener", cat: "Resin & Pigments", price: null, note: "Small to large quantities available.", img: "" },
+  { id: "pigment",    name: "Pigment",            cat: "Resin & Pigments", price: 60,   unit: "per piece", note: "Liquid colour pigments.", img: "" },
+  { id: "mica",       name: "Mica",               cat: "Resin & Pigments", price: null, note: "Mica powder in many shades.", img: "" },
+  { id: "bubble",     name: "Bubble Buster",      cat: "Resin & Pigments", price: 95,   note: "Spray for clearing bubbles from resin.", img: "" },
+  { id: "silica",     name: "Silica Gel",         cat: "Resin & Pigments", price: null, note: "Crystals for drying flowers.", img: "" },
+
+  { id: "moulds",     name: "Moulds",             cat: "Moulds", price: null, note: "More options available. Message to ask.", img: "" },
+  { id: "jewel-m",    name: "Jewellery Mould",    cat: "Moulds", price: null, note: "", img: "" },
+  { id: "candle-m",   name: "Candle Mould",       cat: "Moulds", price: null, note: "", img: "" },
+  { id: "uv-m",       name: "UV Resin Mould",     cat: "Moulds", price: null, note: "", img: "" },
+  { id: "latex",      name: "Liquid Latex",       cat: "Moulds", price: null, note: "For making your own moulds.", img: "" },
+
+  { id: "chunks",     name: "Chunks and Glitter", cat: "Fillers & Décor", price: null, note: "", img: "" },
+  { id: "alpha",      name: "Alphabet Chunks",    cat: "Fillers & Décor", price: 45,   unit: "per piece", note: "", img: "" },
+  { id: "flowers",    name: "Dried Flowers",      cat: "Fillers & Décor", price: 110,  note: "", img: "" },
+  { id: "rose",       name: "Rose Petals",        cat: "Fillers & Décor", price: null, note: "", img: "" },
+  { id: "grass",      name: "Grass",              cat: "Fillers & Décor", price: null, note: "", img: "" },
+  { id: "sand",       name: "Sand",               cat: "Fillers & Décor", price: null, note: "Coloured sand, 500 g.", img: "" },
+  { id: "stones",     name: "Stones",             cat: "Fillers & Décor", price: null, note: "", img: "" },
+  { id: "pearls",     name: "Pearls",             cat: "Fillers & Décor", price: null, note: "", img: "" },
+
+  { id: "foam",       name: "Foam Board",         cat: "Craft & Findings", price: null, note: "Available in A3 and A4 sizes.", img: "" },
+  { id: "pipe",       name: "Pipe Cleaners",      cat: "Craft & Findings", price: null, note: "", img: "" },
+  { id: "tassels",    name: "Tassels",            cat: "Craft & Findings", price: null, note: "", img: "" },
+  { id: "ring",       name: "Keychain Jump Ring", cat: "Craft & Findings", price: null, note: "", img: "" },
+  { id: "markers",    name: "Markers",            cat: "Craft & Findings", price: null, note: "", img: "" },
+  { id: "stickers",   name: "Stickers A",         cat: "Craft & Findings", price: 110,  note: "", img: "" },
+
+  { id: "drill-m",    name: "Manual Drill",       cat: "Tools", price: null, note: "", img: "" },
+  { id: "drill-e",    name: "Electric Drill Tool",cat: "Tools", price: null, note: "", img: "" },
+  { id: "deburr",     name: "Deburring Tool",     cat: "Tools", price: null, note: "", img: "" },
+  { id: "scale",      name: "Weighing Machine",   cat: "Tools", price: 230,  note: "", img: "" },
+  { id: "stand",      name: "Stand",              cat: "Tools", price: null, note: "All types of stands available.", img: "" }
+];
+/* ================================= */
+
+const $ = (s) => document.querySelector(s);
+const fmt = (n) => CONFIG.currency + new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(n);
+const byId = Object.fromEntries(PRODUCTS.map(p => [p.id, p]));
+const CATS = ["All", ...new Set(PRODUCTS.map(p => p.cat))];
+let cat = "All", query = "", cart = {};
+try { cart = JSON.parse(localStorage.getItem("ram-cart") || "{}"); } catch (e) { cart = {}; }
+Object.keys(cart).forEach(k => { if (!byId[k] || !(cart[k] > 0)) delete cart[k]; });
+const save = () => { try { localStorage.setItem("ram-cart", JSON.stringify(cart)); } catch (e) {} };
+
+function slot(src, label, cls) {
+  const ini = (label || "?").trim().charAt(0).toUpperCase();
+  return `<div class="slot ${cls || ""}"><div class="ph" aria-hidden="true">${ini}</div>${src ? `<img src="${src}" alt="${label}" loading="lazy" onerror="this.remove()">` : ""}</div>`;
+}
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function renderChips() {
+  $("#chips").innerHTML = CATS.map(c => `<button class="chip" type="button" data-cat="${esc(c)}" aria-pressed="${c === cat}">${esc(c)}</button>`).join("");
+}
+function ctrl(p) {
+  const q = cart[p.id] || 0;
+  return q
+    ? `<div class="qty"><button type="button" data-dec="${p.id}" aria-label="Remove one ${esc(p.name)}">−</button><output>${q}</output><button type="button" data-inc="${p.id}" aria-label="Add one ${esc(p.name)}">+</button></div>`
+    : `<button class="add" type="button" data-inc="${p.id}" aria-label="Add ${esc(p.name)} to cart">Add</button>`;
+}
+function renderGrid() {
+  const list = PRODUCTS.filter(p => (cat === "All" || p.cat === cat) && (!query || (p.name + " " + p.note + " " + p.cat).toLowerCase().includes(query)));
+  $("#grid").innerHTML = list.length ? list.map(p => `
+    <article class="card" data-card="${p.id}">
+      ${slot(p.img, p.name)}
+      <div class="body">
+        <h3>${esc(p.name)}</h3>
+        ${p.note ? `<p class="note">${esc(p.note)}</p>` : ""}
+        <div class="row">
+          ${p.price != null ? `<div class="price">${fmt(p.price)}${p.unit ? `<small>${esc(p.unit)}</small>` : ""}</div>` : `<div class="price ask">Ask for price</div>`}
+          <span data-ctrl="${p.id}">${ctrl(p)}</span>
+        </div>
+      </div>
+    </article>`).join("") : `<p class="empty">Nothing matches that search. Message us on WhatsApp and we will help you find it.</p>`;
+}
+
+function totals() {
+  let count = 0, sum = 0, quote = 0;
+  for (const id in cart) { const p = byId[id], q = cart[id]; count += q; if (p.price != null) sum += p.price * q; else quote++; }
+  return { count, sum, quote };
+}
+function message() {
+  const name = $("#custName").value.trim(), note = $("#custNote").value.trim();
+  const t = totals();
+  const lines = Object.keys(cart).map((id, i) => {
+    const p = byId[id], q = cart[id];
+    return `${i + 1}. ${p.name} x ${q}` + (p.price != null ? ` (${fmt(p.price * q)})` : " (price to confirm)");
+  });
+  let m = "Hi, I would like to order from your Resin Art Materials catalogue:\n\n" + lines.join("\n");
+  m += "\n\nTotal of priced items: " + fmt(t.sum);
+  if (t.quote) m += "\nItems to quote: " + t.quote;
+  if (name) m += "\n\nName: " + name;
+  if (note) m += "\nNote: " + note;
+  return m;
+}
+function waLink(text) { return "https://wa.me/" + CONFIG.phone + (text ? "?text=" + encodeURIComponent(text) : ""); }
+
+function renderCart() {
+  const t = totals(), ids = Object.keys(cart);
+  $("#cartCount").textContent = t.count;
+  $("#barN").textContent = t.count + (t.count === 1 ? " item" : " items");
+  $("#barT").textContent = t.sum ? "View cart · " + fmt(t.sum) : "View cart";
+  $("#bar").classList.toggle("on", t.count > 0 && !$("#drawer").classList.contains("on"));
+  $("#lines").innerHTML = ids.length ? ids.map(id => {
+    const p = byId[id], q = cart[id];
+    return `<div class="line">
+      <div><b>${esc(p.name)}</b><div class="u">${p.price != null ? fmt(p.price) + (p.unit ? " " + esc(p.unit) : " each") : "Price on WhatsApp"}</div></div>
+      <div class="sum">${p.price != null ? fmt(p.price * q) : "—"}</div>
+      <div class="qty"><button type="button" data-dec="${id}" aria-label="Remove one ${esc(p.name)}">−</button><output>${q}</output><button type="button" data-inc="${id}" aria-label="Add one ${esc(p.name)}">+</button></div>
+      <button class="rm" type="button" data-rm="${id}">Remove</button></div>`;
+  }).join("") : `<div class="cart-empty"><b>Your cart is empty</b>Add a few materials and they will show up here.</div>`;
+  $("#checkout").hidden = !ids.length;
+  $("#total").textContent = fmt(t.sum);
+  $("#fine").textContent = t.quote ? `${t.quote} ${t.quote === 1 ? "item has" : "items have"} no listed price. We will confirm the final total on WhatsApp.` : "Delivery and final total are confirmed on WhatsApp.";
+  $("#sendWa").href = waLink(message());
+}
+function setQty(id, d) {
+  const q = Math.max(0, (cart[id] || 0) + d);
+  if (q) cart[id] = q; else delete cart[id];
+  save();
+  document.querySelectorAll(`[data-ctrl="${id}"]`).forEach(el => el.innerHTML = ctrl(byId[id]));
+  renderCart();
+}
+
+function openCart(on) {
+  $("#drawer").classList.toggle("on", on); $("#scrim").classList.toggle("on", on);
+  $("#drawer").setAttribute("aria-hidden", String(!on));
+  renderCart();
+  if (on) $("#closeCart").focus(); else $("#openCart").focus({ preventScroll: true });
+}
+let tt;
+function toast(m) { const el = $("#toast"); el.textContent = m; el.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => el.classList.remove("on"), 2200); }
+
+document.addEventListener("click", (e) => {
+  const t = e.target.closest("button, a"); if (!t) return;
+  if (t.dataset.cat) { cat = t.dataset.cat; renderChips(); renderGrid(); }
+  else if (t.dataset.inc) setQty(t.dataset.inc, 1);
+  else if (t.dataset.dec) setQty(t.dataset.dec, -1);
+  else if (t.dataset.rm) setQty(t.dataset.rm, -cart[t.dataset.rm]);
+});
+$("#q").addEventListener("input", (e) => { query = e.target.value.trim().toLowerCase(); renderGrid(); });
+$("#openCart").onclick = () => openCart(true);
+$("#barBtn").onclick = () => openCart(true);
+$("#closeCart").onclick = () => openCart(false);
+$("#scrim").onclick = () => openCart(false);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && $("#drawer").classList.contains("on")) openCart(false); });
+["#custName", "#custNote"].forEach(s => $(s).addEventListener("input", () => { $("#sendWa").href = waLink(message()); }));
+$("#sendWa").addEventListener("click", () => toast("Opening WhatsApp with your order"));
+$("#copyMsg").onclick = async () => {
+  const m = message();
+  try { await navigator.clipboard.writeText(m); toast("Order message copied"); }
+  catch (err) { const ta = $("#custNote"); toast("Copy blocked. Use the WhatsApp button instead."); }
+};
+
+/* static bits */
+const hello = "Hi, I have a question about your resin art materials.";
+$("#heroWa").href = waLink(hello); $("#askWa").href = waLink(hello);
+$("#phoneText").textContent = CONFIG.phoneDisplay; $("#footPhone").textContent = CONFIG.phoneDisplay;
+if (CONFIG.heroImage) $("#heroSlot").innerHTML = `<img src="${CONFIG.heroImage}" alt="" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`;
+$("#gal").innerHTML = CONFIG.galleryImages.map(g => `<figure>${slot(g.src, g.label)}<figcaption>${esc(g.label)}</figcaption></figure>`).join("");
+
+renderChips(); renderGrid(); renderCart();
+</script>
